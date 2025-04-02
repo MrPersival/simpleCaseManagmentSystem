@@ -1,0 +1,198 @@
+:root{
+    --bg-color: #D7D7D7;
+    --secondary-bg: #FFFFFF;
+    --main-color: #102B3F;
+    --text-logo-color: #007BFF;
+    --pos-color: #28A745;
+
+    --edge-rounding: 10px;
+}
+
+.logo{
+    margin: 1rem;
+    font-style: italic;
+    text-align: left;
+    font-size: 5rem;
+    filter: drop-shadow(5px 5px 15px var(--text-logo-color));
+}
+
+h1{
+    font-family: sans-serif;
+}
+
+header{
+    color: var(--text-logo-color);
+    font-family: "Popins", sans-serif;
+    font-weight: 600;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loginField{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginForm{
+    color: var(--bg-color);
+    padding: 3rem 7.5rem;
+    border-radius: 20px;
+    font-family: sans-serif;
+    font-size: large;
+    filter: drop-shadow(5px 5px 15px var(--main-color));
+}
+
+.loginForm > input{
+    height: 2rem;
+    background-color: var(--bg-color);
+    border-radius: var(--edge-rounding);
+    width: 20rem;
+    border-style: none;
+    margin-bottom: 1rem;
+    font-size: large;
+    margin-top: 0.3rem;
+}
+
+.loginForm > input[type=submit]{
+    background-color: var(--pos-color);
+    width: 5rem;
+    font-weight: 600;
+    color: var(--main-color);
+}
+
+
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    background-image: url("https://i-techsupport.com/wp-content/uploads/2024/11/Still-2024-09-26-082810_1.7.2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#shadownBlur{
+    backdrop-filter: blur(10px) brightness(80%);
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+
+#loggedInPage{
+    background-image: none;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: center;
+    padding: 0.5rem;
+    gap: 3rem;
+}
+
+.leftPanel{
+    display: flex;
+    flex-direction: column;
+}
+
+.menuButtonsHolder{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.menuButtonsHolder > button{
+    border-radius: var(--edge-rounding);
+    border-style: none;
+    background-color: var(--secondary-bg);
+    padding: 0.75rem 1rem;
+    font-size: 1.25rem;
+}
+
+.menuButtonsHolder > button:hover{
+    background-color: var(--main-color);
+    color: var(--secondary-bg);
+}
+
+.mainPanel{
+    flex-grow: 1;
+    border-left-style: solid;
+    border-width: 3px;
+    padding: 0 1rem;
+}
+
+.userInfo{
+    background-color: var(--secondary-bg);
+    border-radius: var(--edge-rounding);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    margin-bottom: 4rem;
+    font-size: 1.25rem;
+}
+
+.newCaseForm{
+    display: flex;
+    flex-direction: column;
+}
+
+.newCaseForm > input{
+    height: 2rem;
+    background-color: var(--secondary-bg);
+    border-radius: var(--edge-rounding);
+    width: 40rem;
+    border-style: none;
+    margin-bottom: 1rem;
+    font-size: large;
+    margin-top: 0.3rem;
+    padding: 0.25rem;
+}
+
+.newCaseForm > label{
+    font-family: sans-serif;
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.newCaseForm > textarea{
+    border-radius: var(--edge-rounding);
+    height: 7rem;
+    padding: 0.25rem;
+}
+
+.newCaseForm > select{
+    width: 20rem;
+    font-size: 1.25rem;
+    border-radius: var(--edge-rounding);
+    padding: 0.25rem;
+}
+
+.newCaseForm > input[type=submit]{
+    background-color: var(--pos-color);
+    width: 12rem;
+    font-weight: 600;
+    color: var(--main-color);
+}
+
+.newCaseForm > input[type=submit]:hover{
+    background-color: var(--main-color);
+    color: var(--secondary-bg);
+}
+
+.pressedPanelButton{
+    background-color: var(--main-color);
+    color: var(--secondary-bg);
+}
+
+
+
