@@ -9,12 +9,21 @@
     --edge-rounding: 10px;
 }
 
+a:link, a:visited, a{
+    text-decoration: none;
+    color: black;
+}
+
 .logo{
     margin: 1rem;
     font-style: italic;
     text-align: left;
     font-size: 5rem;
     filter: drop-shadow(5px 5px 15px var(--text-logo-color));
+}
+
+.fullHeight{
+    height: 100vh;
 }
 
 h1{
@@ -69,7 +78,6 @@ header{
 body{
     display: flex;
     flex-direction: column;
-    height: 100vh;
     margin: 0;
     background-image: url("https://i-techsupport.com/wp-content/uploads/2024/11/Still-2024-09-26-082810_1.7.2.jpg");
     background-repeat: no-repeat;
@@ -218,11 +226,7 @@ body{
 
 }
 
-.changeColorOnHover:hover{
-    color: var(--secondary-bg);
-    background-color: var(--main-color);
-    cursor: pointer;
-}
+
 
 .caseShortShow > *{
     height: 100%;
@@ -241,6 +245,8 @@ body{
 .caseShortShow > * > span{
     border-radius: var(--edge-rounding);
     padding: 0.25rem 0.5rem;
+    text-decoration: none;
+
 }
 
 .deleteUserButton{
@@ -258,8 +264,11 @@ body{
     cursor: pointer;
 }
 
-
-
+.changeColorOnHover:hover{
+    color: var(--secondary-bg);
+    background-color: var(--main-color);
+    cursor: pointer;
+}
 
 .dropbtn {
     background-color: #04AA6D;
@@ -319,5 +328,79 @@ body{
     justify-content: center;
     flex-direction: column;
     margin-top: 0.25rem;
+}
+
+.caseView{
+    display: flex;
+    padding: 0.5rem 1rem;
+    flex-direction: column;
+    background: var(--bg-color);
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    overflow-y: scroll;
+}
+
+
+.ticketHeader, .ticketMessages{
+    width: 80%;
+}
+
+.ticketHeader, .notYourMessage, .yourMessage{
+    background-color: var(--secondary-bg);
+    border-radius: var(--edge-rounding);
+    padding: 0.5rem 1rem;
+
+}
+
+.ticketMessages{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.notYourMessage{
+    text-align: left;
+}
+
+.yourMessage{
+    text-align: right;
+}
+
+h4{
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.newMessageTicket{
+    width: 100%;
+}
+
+.newMessageTicket > form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+.newMessage{
+    height: 4rem;
+    width: 70%;
+}
+
+.submitButton{
+    background-color: var(--pos-color);
+    width: 5rem;
+    height: 2rem;
+    font-weight: 600;
+    color: var(--main-color);
+    cursor: pointer;
+    border: none;
+    border-radius: var(--edge-rounding);
+}
+
+.submitButton:hover{
+    background-color: var(--main-color);
+    color: var(--secondary-bg);
 }
 

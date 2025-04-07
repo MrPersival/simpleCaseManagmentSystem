@@ -41,6 +41,28 @@ if(isset($_SESSION["accesslevel"]))
         $sql = $conn->prepare($query);
         $sql->bind_param("sssssssssss",$titel, $description, $date, $date, $assigningStatus, $priority, $category, $clientName, $clientEmail, $clientCompany, $clientPhone);
         $sql->execute();
+
+        $insertedId = $conn->insert_id;
+        $messageTableName = "reqmessages" .$insertedId;
+
+        $query = "CREATE TABLE `$messageTableName` (
+            `id` int(11) NOT NULL,
+            `author` varchar(100) NOT NULL,
+            `dateSended` date NOT NULL,
+            `content` text NOT NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;";
+
+        $conn->execute_query($query);
+        $conn->execute_query("ALTER TABLE `$messageTableName`
+            ADD PRIMARY KEY (`id`);");
+        $conn->execute_query("ALTER TABLE `$messageTableName`
+            MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;");
+        $conn->execute_query("COMMIT;");
+
+        $query = "INSERT INTO `$messageTableName`(`author`, `dateSended`, `content`) VALUES (?, ?, ?);";
+        $sql = $conn->prepare($query);
+        $sql->bind_param("sss", $clientEmail, $date, $description);
+        $sql->execute();
         $isRequestSended = true;
     }
 
@@ -76,7 +98,7 @@ if(isset($_SESSION["accesslevel"]))
 
 
             $userRequestsHTML .="
-                        <button class='caseShortShow changeColorOnHover'>
+                        <a class='caseShortShow changeColorOnHover' href='caseView.php?caseId=$rowId' target='_blank'>
                             <div class='id'>
                                 <span>
                                     Request #$rowId
@@ -95,13 +117,14 @@ if(isset($_SESSION["accesslevel"]))
                             <div class='status'>
                                 $rowStatus
                             </div>
-                        </button>
+                        </a>
             ";
         }
     }
 
     if($oppenedPanel == 3){
-        $query = "SELECT `id`, `titel`, `status`, `assignedto`, 'clientemail' FROM `requests` WHERE assignedto='$email'";
+        if($lvl == 10) $query = "SELECT `id`, `titel`, `status`, `assignedto`, 'clientemail' FROM `requests` WHERE NOT assignedto=''";
+        else $query = "SELECT `id`, `titel`, `status`, `assignedto`, 'clientemail' FROM `requests` WHERE assignedto='$email'";
         $result = $conn->execute_query(query: $query);
 
         $supportsRequestsHTML = "";
@@ -118,7 +141,7 @@ if(isset($_SESSION["accesslevel"]))
 
 
             $supportsRequestsHTML .="
-                        <button class='caseShortShow changeColorOnHover'>
+                        <a class='caseShortShow changeColorOnHover' href='caseView.php?caseId=$rowId' target='_blank'>
                             <div class='id'>
                                 <span>
                                     Request #$rowId
@@ -137,7 +160,7 @@ if(isset($_SESSION["accesslevel"]))
                             <div class='status'>
                                 $rowStatus
                             </div>
-                        </button>
+                        </a>
             ";
         }
     }
@@ -147,7 +170,8 @@ if(isset($_SESSION["accesslevel"]))
         if(isset($_POST["ticketsIdToAssign"])){
             $ticketId = $_POST["ticketsIdToAssign"];
             $assignedSupport = $_POST["supportToAssignToTicket"];
-            $query = "UPDATE `requests` SET `assignedTo` = '$assignedSupport', `status` = 'In Progress' WHERE `id` = $ticketId";
+            $assignedDate = date("Y/m/d");
+            $query = "UPDATE `requests` SET `assignedTo` = '$assignedSupport', `status` = 'In Progress', `lastupdate` = $assignedDate WHERE `id` = $ticketId";
             $result = $conn->execute_query($query);
         }
 
@@ -185,11 +209,11 @@ if(isset($_SESSION["accesslevel"]))
 
 
             $notAssignedRequests .="
-                        <a class='caseShortShow changeColorOnHover'>
+                        <div class='caseShortShow changeColorOnHover'>
                             <div class='id'>
-                                <span>
+                                <a href='caseView.php?caseId=$rowId' target='_blank'>
                                     Request #$rowId
-                                </span>
+                                </a>
                             </div>
                             <div class='titel'>
                                 <span>
@@ -202,7 +226,7 @@ if(isset($_SESSION["accesslevel"]))
                             <div class='status'>
                                 $rowStatus
                             </div>
-                        </a>
+                        </div>
             ";
         }
     }
@@ -405,6 +429,7 @@ if(isset($_SESSION["accesslevel"]))
                     supportToAssignToTicket: supportToAssign
                 },
                 success: function(response) {
+                    //console.info("Request sended: " + response);
                     window.location.href = "logedIn.php?oppenedPanel=4";
 
                 },
