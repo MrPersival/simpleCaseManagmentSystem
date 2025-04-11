@@ -33,6 +33,7 @@ if(isset($_SESSION["accesslevel"]))
     $caseAuthor = $case["clientemail"];
     $caseCreationDay = $case["creationdate"];
     $caseAssginedTo = $case["assignedto"];
+    $caseStatus = $case["status"];
 
     $messagesTableName = "reqmessages" . $caseId;
     $result = $conn->execute_query("SELECT * FROM `$messagesTableName`");
@@ -51,7 +52,7 @@ if(isset($_SESSION["accesslevel"]))
             </div>";
     }
 
-    if(isset($_POST["sendMessage"])){
+    if(isset($_POST["sendMessage"]) && $isHasAcess){
         $messageToSend = htmlspecialchars(string: strip_tags(trim(string: $_POST['messageText'])));
         $date = date("Y/m/d");
 
@@ -64,6 +65,16 @@ if(isset($_SESSION["accesslevel"]))
         $sql = $conn->prepare($query);
         $sql->bind_param("s", $date);
         $sql->execute();
+    }
+
+    if(isset($_POST["closeCase"])  && $isHasAcess){
+        $query = "UPDATE `requests` SET `lastupdate` = ? WHERE `requests`.`id` = $caseId";
+        $sql = $conn->prepare($query);
+        $sql->bind_param("s", $date);
+        $sql->execute();
+
+        $query = "UPDATE `requests` SET `status` = 'Closed' WHERE `requests`.`id` = $caseId";
+        $conn->execute_query($query);
     }
 
 }
@@ -91,7 +102,11 @@ if(isset($_SESSION["accesslevel"]))
             <h1><?=$caseName?></h1>
             <h3><?=$caseAuthor?></h3>
             <h3><?=$caseCreationDay?></h3>
+            <h3><?=$caseStatus?></h3>
             <h3>Assigned to: <?=$caseAssginedTo?></h3>
+            <form action="caseView.php?caseId=<?=$caseId?>" method="post">
+                <input type="submit" value="Stänga ärande" name="closeCase" class="closeCaseButton" onclick="updatePage()">
+            </form>
         </div>
         <div class="ticketMessages">
             <?=$messagesHTML?>

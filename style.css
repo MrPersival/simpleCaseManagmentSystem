@@ -404,3 +404,17 @@ h4{
     color: var(--secondary-bg);
 }
 
+.closeCaseButton{
+    background-color: var(--negative-color);
+    height: 2rem;
+    font-weight: 600;
+    color: var(--secondary-bg);
+    cursor: pointer;
+    border: none;
+    border-radius: var(--edge-rounding);
+}
+
+.closeCaseButton:hover{
+    background-color: var(--main-color);
+    color: var(--secondary-bg);
+}

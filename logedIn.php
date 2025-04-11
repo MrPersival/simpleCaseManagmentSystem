@@ -93,8 +93,11 @@ if(isset($_SESSION["accesslevel"]))
             $rowAssignedTo = $row['assignedto'];
             if($rowAssignedTo == "") $rowAssignedTo = "Support ännu inte tilldelad"; 
             $rowStatus = $row['status'];
-            if($rowStatus == "Not assigned") $rowStatus = "<span style='background-color: orange;'>$rowStatus</span>";
-            else $rowStatus = "<span style='background-color: green;'>$rowStatus</span>";
+            match ($rowStatus) {
+                "In Progress" => $rowStatus = "<span style='background-color: green;'>$rowStatus</span>",
+                "Closed" => $rowStatus = "<span style='background-color: red; color: white;'>$rowStatus</span>",
+                "Not assigned" => $rowStatus = "<span style='background-color: orange;'>$rowStatus</span>"
+            };
 
 
             $userRequestsHTML .="
@@ -136,8 +139,11 @@ if(isset($_SESSION["accesslevel"]))
             $rowAssignedTo = $row['assignedto'];
             if($rowAssignedTo == "") $rowAssignedTo = "Support ännu inte tilldelad"; 
             $rowStatus = $row['status'];
-            if($rowStatus == "Not assigned") $rowStatus = "<span style='background-color: orange;'>$rowStatus</span>";
-            else $rowStatus = "<span style='background-color: green;'>$rowStatus</span>";
+            match ($rowStatus) {
+                "In Progress" => $rowStatus = "<span style='background-color: green;'>$rowStatus</span>",
+                "Closed" => $rowStatus = "<span style='background-color: red; color: white;'>$rowStatus</span>",
+                "Not assigned" => $rowStatus = "<span style='background-color: orange;'>$rowStatus</span>"
+            };
 
 
             $supportsRequestsHTML .="
@@ -204,9 +210,11 @@ if(isset($_SESSION["accesslevel"]))
                 </div>
             </div>"; 
             $rowStatus = $row['status'];
-            if($rowStatus == "Not assigned") $rowStatus = "<span style='background-color: orange;'>$rowStatus</span>";
-            else $rowStatus = "<span style='background-color: green;'>$rowStatus</span>";
-
+            match ($rowStatus) {
+                "In Progress" => $rowStatus = "<span style='background-color: green;'>$rowStatus</span>",
+                "Closed" => $rowStatus = "<span style='background-color: red; color: white;'>$rowStatus</span>",
+                "Not assigned" => $rowStatus = "<span style='background-color: orange;'>$rowStatus</span>"
+            };
 
             $notAssignedRequests .="
                         <div class='caseShortShow changeColorOnHover'>
@@ -316,7 +324,7 @@ if(isset($_SESSION["accesslevel"]))
         <div class="mainPanel">
             <div id="panelContent">
                 <?php if($oppenedPanel == 1) {?>
-                    <div id="panelHeader"><h1>Ny ärende</h1></div>
+                        <div id="panelHeader"><h1>Ny ärende</h1></div>
                     <?php if($isRequestSended) { ?>
                         <h2 style="color: green; font-weight: 500; font-family: sans-serif;">Din ärande skickat!</h2>
                     <?php } ?>
@@ -353,6 +361,7 @@ if(isset($_SESSION["accesslevel"]))
                         <?=$userRequestsHTML?>
                     </div>
                 <?php } elseif  ($oppenedPanel == 3) { ?>
+                    <?php if($lvl >= 5) {?>
                     <div id="panelHeader"><h1>Tilldelat ärende</h1></div>
                     <div class="caseHolder">
                         <?=$supportsRequestsHTML?>
@@ -360,13 +369,21 @@ if(isset($_SESSION["accesslevel"]))
                         if($supportsRequestsHTML == "") echo "<span style='font-family: sans-serif; font-weight: 600'>Ingen ärende är skapad av.</span>";
                         ?>
                     </div>
+                    <?php }else{ ?>
+                        <p>Du har inte tillgång till det här sida</p>
+                    <?php } ?>
                 <?php } elseif  ($oppenedPanel == 4) { ?>
-                    <div id="panelHeader"><h1>Tilldela ärende</h1></div>
-                    <?=$notAssignedRequests?>
-                        <?php
-                        if($notAssignedRequests == "") echo "<span style='font-family: sans-serif; font-weight: 600'>Alla ärande är tilldelat!</span>";
-                    ?>
+                    <?php if($lvl >= 10) {?>
+                        <div id="panelHeader"><h1>Tilldela ärende</h1></div>
+                        <?=$notAssignedRequests?>
+                            <?php
+                            if($notAssignedRequests == "") echo "<span style='font-family: sans-serif; font-weight: 600'>Alla ärande är tilldelat!</span>";
+                        ?>
+                    <?php }else{ ?>
+                        <p>Du har inte tillgång till det här sida</p>
+                    <?php } ?>
                 <?php } elseif  ($oppenedPanel == 5) { ?>
+                    <?php if($lvl >= 10) {?>
                     <div id="panelHeader"><h1>Skappa nytt användare</h1></div>
                     <?php if($isUserCreated) { ?>
                         <h2 style="color: green; font-weight: 500; font-family: sans-serif;">Ny användare skapad!</h2>
@@ -388,6 +405,9 @@ if(isset($_SESSION["accesslevel"]))
                     <div class="caseHolder">
                         <?=$accountsHTML?>
                     </div>
+                    <?php }else{ ?>
+                        <p>Du har inte tillgång till det här sida</p>
+                    <?php } ?>
                 <?php } ?>
             </div>
         </div>
