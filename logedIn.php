@@ -309,7 +309,7 @@ if(isset($_SESSION["accesslevel"]))
                 </p>
             </div>
             <div class="menuButtonsHolder">
-                <button class="menuButton" id="pannelButton1" onclick="pannelButtonPressed(1)">Ny ärende</button>
+                <button class="menuButton" id="pannelButton1" onclick="pannelButtonPressed(1)">Nytt ärende</button>
                 <button class="menuButton" id="pannelButton2" onclick="pannelButtonPressed(2)">Mina ärende</button>
 
                 <?php if($lvl >= 5) { ?>
@@ -317,14 +317,14 @@ if(isset($_SESSION["accesslevel"]))
                 <?php } ?>
                 <?php if($lvl >= 10) { ?>
                     <button class="menuButton" id="pannelButton4" onclick="pannelButtonPressed(4)">Tilldela ärende</button>
-                    <button class="menuButton" id="pannelButton5" onclick="pannelButtonPressed(5)">Skappa nytt användare</button>
+                    <button class="menuButton" id="pannelButton5" onclick="pannelButtonPressed(5)">Skapa ny användare</button>
                 <?php } ?>
             </div>
         </div>
         <div class="mainPanel">
             <div id="panelContent">
                 <?php if($oppenedPanel == 1) {?>
-                        <div id="panelHeader"><h1>Ny ärende</h1></div>
+                        <div id="panelHeader"><h1>Nytt ärende</h1></div>
                     <?php if($isRequestSended) { ?>
                         <h2 style="color: green; font-weight: 500; font-family: sans-serif;">Din ärande skickat!</h2>
                     <?php } ?>
@@ -347,11 +347,11 @@ if(isset($_SESSION["accesslevel"]))
                             <option value="genericQuestion">Allmän fråga</option>
                         </select>
 
-                        <label for="clientName">Din namn:</label>
+                        <label for="clientName">Ditt namn:</label>
                         <input type="text" id="clientName" name="clientName" required>
-                        <label for="clientCompany">Din företag:</label>
+                        <label for="clientCompany">Ditt företag:</label>
                         <input type="text" id="clientCompany" name="clientCompany" placeholder="Valfritt">
-                        <label for="clientPhone">Din telefonnummer:</label>
+                        <label for="clientPhone">Ditt telefonnummer:</label>
                         <input type="text" id="clientPhone" name="clientPhone" placeholder="Valfritt">
                         <input type="submit" value="Skicka ärande" name="caseSend">
                     </form>
@@ -377,14 +377,14 @@ if(isset($_SESSION["accesslevel"]))
                         <div id="panelHeader"><h1>Tilldela ärende</h1></div>
                         <?=$notAssignedRequests?>
                             <?php
-                            if($notAssignedRequests == "") echo "<span style='font-family: sans-serif; font-weight: 600'>Alla ärande är tilldelat!</span>";
+                            if($notAssignedRequests == "") echo "<span style='font-family: sans-serif; font-weight: 600'>   </span>";
                         ?>
                     <?php }else{ ?>
                         <p>Du har inte tillgång till det här sida</p>
                     <?php } ?>
                 <?php } elseif  ($oppenedPanel == 5) { ?>
                     <?php if($lvl >= 10) {?>
-                    <div id="panelHeader"><h1>Skappa nytt användare</h1></div>
+                    <div id="panelHeader"><h1>Skapa ny användare</h1></div>
                     <?php if($isUserCreated) { ?>
                         <h2 style="color: green; font-weight: 500; font-family: sans-serif;">Ny användare skapad!</h2>
                     <?php } ?>

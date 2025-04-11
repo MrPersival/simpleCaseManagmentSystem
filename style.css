@@ -109,8 +109,6 @@ body{
 .leftPanel{
     display: flex;
     flex-direction: column;
-    border-right-style: solid;
-    border-width: 3px;
     padding: 1rem;
 }
 
@@ -137,6 +135,9 @@ body{
 .mainPanel{
     flex-grow: 1;
     padding: 1rem;
+    min-height: 100vh;
+    border-left-style: solid;
+    border-width: 3px;
 }
 
 .userInfo{
@@ -148,6 +149,7 @@ body{
     font-family: sans-serif;
     margin-bottom: 4rem;
     font-size: 1.25rem;
+    padding: 0.25rem 0.5rem;
 }
 
 .newCaseForm{
@@ -207,7 +209,7 @@ body{
 
 .caseHolder{
     display: flex;
-    gap: 2rem;
+    gap: 3rem;
     flex-direction: column;
 }
 
@@ -218,18 +220,18 @@ body{
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
-    align-items: center;
-    height: 3rem;
+    align-items: stretch;
     padding: 0 1rem;
     font-family: sans-serif;
     font-size: large;
+    min-height: 3rem;
 
 }
 
 
 
 .caseShortShow > *{
-    height: 100%;
+    flex-basis: 100%;
     padding: 0 1rem;
     text-align: center;
     display: flex;
@@ -246,7 +248,6 @@ body{
     border-radius: var(--edge-rounding);
     padding: 0.25rem 0.5rem;
     text-decoration: none;
-
 }
 
 .deleteUserButton{

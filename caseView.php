@@ -103,7 +103,7 @@ if(isset($_SESSION["accesslevel"]))
             <h3><?=$caseAuthor?></h3>
             <h3><?=$caseCreationDay?></h3>
             <h3><?=$caseStatus?></h3>
-            <h3>Assigned to: <?=$caseAssginedTo?></h3>
+            <h3>Tilldelat till: <?=$caseAssginedTo?></h3>
             <form action="caseView.php?caseId=<?=$caseId?>" method="post">
                 <input type="submit" value="Stänga ärande" name="closeCase" class="closeCaseButton" onclick="updatePage()">
             </form>
@@ -119,7 +119,7 @@ if(isset($_SESSION["accesslevel"]))
         </div>
         <?php } ?>  
     <?php } else { ?>
-            <p>Du är inte inllogad. <a href="index.php">Log in</a>.</p>
+            <p>Du är inte inloggad. <a href="index.php">Log in</a>.</p>
     <?php }?>
 </body>
 <script>
